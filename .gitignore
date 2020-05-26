@@ -13,3 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+/.idea/bookstore_oauth-api.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
