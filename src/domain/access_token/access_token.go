@@ -1,7 +1,6 @@
 package access_token
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -23,8 +22,5 @@ func GetNewAccessToken() AccessToken {
 }
 
 func (a AccessToken) isExpired() bool {
-	now := time.Now().UTC()
-	expirationTime := time.Unix(a.Expires, 0)
-	fmt.Println(expirationTime)
-	return expirationTime.Before(now)
+	return time.Unix(a.Expires, 0).Before(time.Now().UTC())
 }
