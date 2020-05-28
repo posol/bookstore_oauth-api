@@ -1,0 +1,5 @@
+# get oauth token
+GET http://localhost:8080/api/oauth/access_token/123
+Accept: application/json
+
+###
