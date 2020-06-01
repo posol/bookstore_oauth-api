@@ -5,12 +5,22 @@ import (
 	"strings"
 )
 
+func NewService(repo Repository) Service {
+	return &service{
+		repository: repo,
+	}
+}
+
 type Repository interface {
 	GetById(string) (*AccessToken, *errors.RestError)
+	Create(AccessToken) *errors.RestError
+	UpdateExpirationTime(AccessToken) *errors.RestError
 }
 
 type Service interface {
 	GetById(string) (*AccessToken, *errors.RestError)
+	Create(AccessToken) *errors.RestError
+	UpdateExpirationTime(AccessToken) *errors.RestError
 }
 
 type service struct {
@@ -30,8 +40,16 @@ func (s *service) GetById(accessTokenId string) (*AccessToken, *errors.RestError
 	return accessToken, nil
 }
 
-func NewService(repo Repository) Service {
-	return &service{
-		repository: repo,
+func (s *service) Create(token AccessToken) *errors.RestError {
+	if err := token.Validate(); err != nil {
+		return err
 	}
+	return s.repository.Create(token)
+}
+
+func (s *service) UpdateExpirationTime(token AccessToken) *errors.RestError {
+	if err := token.Validate(); err != nil {
+		return err
+	}
+	return s.repository.UpdateExpirationTime(token)
 }
