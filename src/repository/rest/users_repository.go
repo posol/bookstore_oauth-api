@@ -22,6 +22,10 @@ type RestUsersRepository interface {
 type usersRepository struct {
 }
 
+func NewRepository() RestUsersRepository {
+	return &usersRepository{}
+}
+
 func (u *usersRepository) LoginUser(email string, password string) (*users.User, *errors.RestError) {
 	request := users.UserLoginRequest{
 		Email:    email,
@@ -47,8 +51,4 @@ func (u *usersRepository) LoginUser(email string, password string) (*users.User,
 		return nil, errors.NewIntrenalServerError("error when trying to unmarshal users login response")
 	}
 	return &user, nil
-}
-
-func NewRepository() RestUsersRepository {
-	return &usersRepository{}
 }

@@ -14,10 +14,6 @@ const (
 	queryUpdateExpires     = "update access_token set expires = ? where access_token = ?;"
 )
 
-func NewRepository() DbRepository {
-	return &dbRepository{}
-}
-
 type DbRepository interface {
 	GetById(string) (*access_token.AccessToken, *errors.RestError)
 	Create(access_token.AccessToken) *errors.RestError
@@ -25,6 +21,10 @@ type DbRepository interface {
 }
 
 type dbRepository struct {
+}
+
+func NewRepository() DbRepository {
+	return &dbRepository{}
 }
 
 func (r *dbRepository) GetById(id string) (*access_token.AccessToken, *errors.RestError) {
